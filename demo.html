@@ -1,0 +1,51 @@
+<html>
+	<body ng-app="test">
+		<div ng-controller="inventory" style="margin-top: 100px;">
+			<slider min="min" max="max" low="low" high="high" setter-low="applyFilter('low', low, 'mileage');" setter-high="applyFilter('high', high, 'mileage');" width="500" interval="5000" width-handle="28" promise-init="inventoryLoadedPromise">   </slider>
+			<div style="margin-top: 50px;">
+				<button ng-click="applyFilter('low', 15000, 'mileage');applyFilter('high', max, 'mileage');">Over 15000</button>
+				<button ng-click="applyFilter('high', 50000, 'mileage');applyFilter('low', min, 'mileage');">Under 50000</button>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js"></script>
+		<script>
+			var inventoryLoaded;
+			angular.module('test', ['rangeSlider']).controller('inventory', ['$scope', '$q', function ($scope, $q) {
+				inventoryLoaded = $q.defer();
+
+				$scope.inventoryLoadedPromise = inventoryLoaded.promise;  // fake service load
+				$scope.applyFilter = function (handle, value, filter) {
+					if(filter === 'mileage') {
+						if(handle === 'low') {
+							$scope.low = value;
+						}
+						else {
+							$scope.high = value;
+						}	
+					}
+				};
+
+				inventoryLoaded.promise.then(function () {
+					$scope.min = 0;
+					$scope.max = 150000;
+
+					// delay before setting low and high
+					setTimeout(function () {
+						// inventory loaded, now we should have some values
+
+						$scope.applyFilter('low', 18000, 'mileage');
+						$scope.applyFilter('high', 80000, 'mileage');
+
+						setTimeout(function () {
+							$scope.$apply();
+						}, 500);
+					}, 500);
+				}, false);
+
+				// fake inventory load
+				inventoryLoaded.resolve();
+			}]);
+		</script>
+		<script src="https://rawgit.com/kohesion/angularJS-range-slider/master/angular.rangeSlider.js"></script>
+	</body>
+</html>
