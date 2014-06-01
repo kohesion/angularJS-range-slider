@@ -12,7 +12,6 @@
   </head>
 
   <body>
-
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
@@ -31,6 +30,25 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
+	<div style="float: left;">
+		<p>This script is completely free, do with it what you will, no strings attached.</p>
+		<p>If this tool is helping you make money, I'd appreciate a paypal donation.</p>
+	</div>
+	<div style="float: right;">
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+			<input type="hidden" name="cmd" value="_donations">
+			<input type="hidden" name="business" value="mbaker@kohesion.net">
+			<input type="hidden" name="lc" value="US">
+			<input type="hidden" name="item_name" value="Kohesion">
+			<input type="hidden" name="no_note" value="0">
+			<input type="hidden" name="currency_code" value="USD">
+			<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
+			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+			<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+		</form>
+	</div>
+
+
             <div ng-app="test" ng-controller="inventory" style="margin-top: 100px;">
                     <slider min="min" max="max" low="low" high="high" setter-low="applyFilter('low', low, 'mileage');" setter-high="applyFilter('high', high, 'mileage');" width="500" interval="5000" width-handle="28" promise-init="inventoryLoadedPromise">   </slider>
                     <div style="margin-top: 50px;">
