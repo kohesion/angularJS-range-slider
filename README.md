@@ -4,7 +4,9 @@ angularJS-range-slider
 Couldn't find one for desktop AND mobile that wasn't flakey so I made my own. Super simple, doesn't require jQuery, images or CSS file.
 
 Use it like this:
+```
 <slider min="mileageMin" max="mileageMax" low="mileageLow" high="mileageHigh" setter-low="applyFilter('low', low, 'mileage');" setter-high="applyFilter('high', high, 'mileage');" width="500" interval="5000" width-handle="18" promise-init="inventoryLoaded"></slider>
+```
 
 Details:
 All parameters are required
