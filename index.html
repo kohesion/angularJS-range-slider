@@ -31,7 +31,7 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-            <div ng-controller="inventory" style="margin-top: 100px;">
+            <div ng-app="test" ng-controller="inventory" style="margin-top: 100px;">
                     <slider min="min" max="max" low="low" high="high" setter-low="applyFilter('low', low, 'mileage');" setter-high="applyFilter('high', high, 'mileage');" width="500" interval="5000" width-handle="28" promise-init="inventoryLoadedPromise">   </slider>
                     <div style="margin-top: 50px;">
                             <button ng-click="applyFilter('low', 15000, 'mileage');applyFilter('high', max, 'mileage');">Over 15000</button>
