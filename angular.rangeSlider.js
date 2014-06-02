@@ -35,7 +35,8 @@ angular.module('rangeSlider', []).directive('slider', ['$parse', function ($pars
 				scope.leftLow = pos;
 				var other = elem.nextElementSibling;
 				if (elem.offsetLeft >= parseFloat(other.style.left)) {
-					other.style.left = elem.offsetLeft + widthHandle * 1.5 + 'px';
+					other.style.left = (posOther = elem.offsetLeft + widthHandle * 1.5) + 'px';
+					other.querySelector('span').innerText = that.convertPixelsToValue(Math.min(width, Math.max(0, posOther)));
 				}
 				indicator.style.left = -offset + 'px';
 			}
@@ -44,12 +45,15 @@ angular.module('rangeSlider', []).directive('slider', ['$parse', function ($pars
 				scope.leftHigh = pos;
 				var other = elem.previousElementSibling;
 				if (elem.offsetLeft <= parseFloat(other.style.left)) {
-					other.style.left = elem.offsetLeft - widthHandle * 1.5 + 'px';
+					var posOther;
+					other.style.left = (posOther = elem.offsetLeft - widthHandle * 1.5) + 'px';
+					other.querySelector('span').innerText = that.convertPixelsToValue(Math.min(width, Math.max(0, posOther)));
 				}
 				indicator.style.left = offset + 'px';
 			}
 			indicator.innerText = that.convertPixelsToValue(pos).toFixed(0);
 		};
+
 
 		////////////////////// code for touch devices //////////////////////////////////////
 			var handleTouchStart = function (e) {
