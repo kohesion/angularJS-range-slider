@@ -31,11 +31,11 @@ angular.module('rangeSlider', []).directive('slider', ['$parse', function ($pars
 			var index = (elem.className.indexOf('low') > -1) ? 0 : 1;
 
 			if (index === 0) {
-				elem.style.left = (that.convertValueToPixels(low = that.convertPixelsToValue(pos)) - widthHandle/2) + 'px';
+				elem.style.left = (that.convertValueToPixels(scope.low = that.convertPixelsToValue(pos)) - widthHandle/2) + 'px';
 				scope.leftLow = pos;
 				var other = elem.nextElementSibling;
-				if (parseFloat(elem.style.left) >= parseFloat(other.style.left)) {
-					other.style.left = parseFloat(elem.style.left) + widthHandle + 'px';
+				if (elem.offsetLeft >= parseFloat(other.style.left)) {
+					other.style.left = elem.offsetLeft + widthHandle * 1.5 + 'px';
 				}
 				indicator.style.left = -offset + 'px';
 			}
@@ -44,13 +44,12 @@ angular.module('rangeSlider', []).directive('slider', ['$parse', function ($pars
 				scope.leftHigh = pos;
 				var other = elem.previousElementSibling;
 				if (elem.offsetLeft <= parseFloat(other.style.left)) {
-					other.style.left = elem.offsetLeft - widthHandle + 'px';
+					other.style.left = elem.offsetLeft - widthHandle * 1.5 + 'px';
 				}
 				indicator.style.left = offset + 'px';
 			}
 			indicator.innerText = that.convertPixelsToValue(pos).toFixed(0);
 		};
-
 
 		////////////////////// code for touch devices //////////////////////////////////////
 			var handleTouchStart = function (e) {
@@ -180,22 +179,25 @@ angular.module('rangeSlider', []).directive('slider', ['$parse', function ($pars
 					width = parseInt(scope.width),
 					interval = parseInt(scope.interval);
 
+
 					var adjustLowSlidePosition = function (low) {
+						leftLow = parseFloat(scope.leftLow);
+						leftHigh = parseFloat(scope.leftHigh);
 						high = parseFloat(scope.high);
 
-						(low > high) && (scope.high = high = Math.max(low + interval, low * 1.1)) && (scope.leftHigh = scope.dragHandleHigh.convertValueToPixels(high));
+
 						var elem = node[0].querySelector('.low');
 						var left = scope.dragHandleLow.convertValueToPixels(low);
-
 						scope.leftLow = left;
 
 						scope.dragHandleLow.updateHandle && scope.dragHandleLow.updateHandle(elem, left);
 					};
 
 					var adjustHighSlidePosition = function (high) {
+						leftLow = parseFloat(scope.leftLow);
+						leftHigh = parseFloat(scope.leftHigh);
 						low = parseFloat(scope.low);
 
-						(high < low) && (scope.low = low = Math.min(high - interval, high * 0.9)) && (scope.leftLow = scope.dragHandleLow.convertValueToPixels(low));
 						var elem = node[0].querySelector('.high');
 						var left = scope.dragHandleHigh.convertValueToPixels(high);
 						scope.leftHigh = left;
